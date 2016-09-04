@@ -10,7 +10,6 @@ uint32_t max_gold_coins(uint32_t n)
   {
     case 0:
     case 1:
-      return 0;
     case 2:
     case 3:
     case 4:

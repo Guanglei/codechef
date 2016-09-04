@@ -5,6 +5,11 @@ void generate_prime(int start, int end)
 {
   for(;start<=end;++start)
   {
+    if(start == 1)
+    {
+        continue;
+    }
+
     int root = std::sqrt(start);
     bool is_prime = true;
     for(int i = 2; i <= root; ++i)
@@ -30,8 +35,7 @@ int main()
   for(int i = 1; i<= line; ++i)
   {
     int start = 0, end = 0;
-    std::cin >> start;
-    std::cin >> end;
+    std::cin >> start >> end;
 
     if(end >= start)
     {

@@ -2,75 +2,85 @@
 #include <string>
 #include <iostream>
 
-int main()
+void print(const std::string& str)
 {
-    std::string str;
-    std::cin >> str;
-    
     auto length = str.length();
-    if(length == 0)
-    {
-        return 0;
-    }
 
-    if(length == 1)
+    for(int j = 0; j <= length; ++j)
     {
-        if(str[0] == '9')
+        if(j <= (length/2 - 1))
         {
-            std::cout << 11 << std::endl;
+            std::cout << str[j];
+        }
+        else if(j >= (length+1)/2)
+        {
+            std::cout << str[length - j - 1];
         }
         else
         {
-            std::cout << ((atoi(str.c_str())) + 1) << std::endl;
-        }
-
-        return 0;
-    }
-
-
-    auto low_c_index = &str[(length + 1)/2];
-    auto high_c_index = &str[length/2 - 1];
-    
-    auto check_length = length/2;
-    char *hc = nullptr, *lc = nullptr;
-
-    for(int i=0; i < check_length; ++i)
-    { 
-        hc = high_c_index--;
-        lc = low_c_index++;
-        if(*hc > *lc)
-        {
-            for(int j = 0; j < length; ++j)
-            {
-                if(j <= (length/2 - 1))
-                {
-                    std::cout << str[j];
-                }
-                else if(j >= (length+1)/2)
-                {
-                    std::cout << str[length - j - 1];
-                }
-                else
-                {
-                    std::cout << str[j];
-                }
-            }
-
-            std::cout << std::endl;
-
-            return 0;
-        }
-        else if(*hc < *lc)
-        {
-            if(length % 2 != 0)
-            {
-                if(str[])
-            }
-            break;
+            std::cout << str[j];
         }
     }
-    
-    std::cout << "high_c_index is equal or lower than the low_c_index really need to figure out the next one" << std::endl;
+
+    std::cout << std::endl;
+}
+
+void increment_higher_part(std::string& str)
+{
+    for(int j = (str.length()-1)/2; j >= 0; --j)
+    {
+        if(str[j] == '9')
+        {
+            str[j] = '0';
+        }
+        else
+        {
+            ++str[j];
+            return;
+        }
+    }
+
+    str = "1" + str;
+    str[str.length() - 1] = '1';
+}
+
+int main()
+{
+    int n = 0;
+    std::cin >> n;
+    while(n--)
+    {
+        std::string str;
+        std::cin >> str;
+
+        auto length = str.length();
+
+        char* hc = &str[length == 1 ? 0 : length/2 - 1];
+        char* lc = &str[length == 1 ? 0 : (length + 1)/2];
+        while(*lc && *hc)
+        { 
+            if(*hc > *lc)
+            {
+                print(str);
+                break;
+            }
+            else if(*hc < *lc)
+            {
+                increment_higher_part(str); 
+                print(str);
+                break;
+            }
+
+            --hc;
+            ++lc;
+        }
+        
+        if(!lc)
+        {
+            increment_higher_part(str);   
+            print(str);
+        }
+    }
 
     return 0;
 }

@@ -75,7 +75,7 @@ int main()
             ++lc;
         }
         
-        if(!lc)
+        if(!(*lc))
         {
             increment_higher_part(str);   
             print(str);
